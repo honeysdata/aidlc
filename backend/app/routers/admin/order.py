@@ -1,13 +1,26 @@
 import asyncio
+from typing import List
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
 from app.routers.dependencies import DbSession, AdminToken
-from app.schemas.order import OrderResponse, OrderStatusUpdate
+from app.schemas.order import OrderResponse, OrderStatusUpdate, OrderListResponse
 from app.services.order import OrderService
 from app.services.sse import sse_manager
 
 router = APIRouter(prefix="/orders", tags=["Admin Order"])
+
+
+@router.get("/session/{session_id}", response_model=OrderListResponse)
+async def get_orders_by_session(
+    session_id: int,
+    db: DbSession,
+    token: AdminToken
+):
+    """세션별 주문 목록 조회"""
+    service = OrderService()
+    orders = await service.get_orders_by_session(db, session_id)
+    return OrderListResponse(orders=orders)
 
 
 @router.get("/stream")

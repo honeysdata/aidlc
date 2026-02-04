@@ -17,9 +17,9 @@ export function formatDateTime(dateString) {
 // 주문 상태 한글 변환
 export function formatOrderStatus(status) {
   const statusMap = {
-    PENDING: '대기중',
-    PREPARING: '준비중',
-    COMPLETED: '완료',
+    pending: '대기중',
+    preparing: '준비중',
+    completed: '완료',
   }
   return statusMap[status] || status
 }

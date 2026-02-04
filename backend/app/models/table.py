@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime, UniqueConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime, UniqueConstraint, Index
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.models.base import Base, TimestampMixin
@@ -33,3 +33,13 @@ class TableSession(Base):
     # Relationships
     table = relationship("Table", back_populates="sessions")
     orders = relationship("Order", back_populates="session", cascade="all, delete-orphan")
+    
+    __table_args__ = (
+        # 테이블당 활성 세션은 하나만 허용 (partial unique index)
+        Index(
+            "uq_table_active_session",
+            "table_id",
+            unique=True,
+            postgresql_where=(is_active == True)
+        ),
+    )

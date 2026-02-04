@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Modal } from '../common/Modal'
 import { Button } from '../common/Button'
+import { Loading } from '../common/Loading'
 import { formatPrice, formatDateTime, formatOrderStatus, getStatusColor } from '../../utils/format'
 import { adminApi } from '../../api/client'
 import './OrderDetailModal.css'
@@ -10,18 +11,33 @@ export function OrderDetailModal({ isOpen, onClose, table, onOrderUpdate, onOrde
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (isOpen && table) {
-      // Orders are fetched from dashboard data
-      // In real app, you might fetch orders for specific session
+    if (isOpen && table?.session_id) {
+      loadOrders()
     }
-  }, [isOpen, table])
+  }, [isOpen, table?.session_id])
+
+  const loadOrders = async () => {
+    if (!table?.session_id) return
+    
+    setLoading(true)
+    try {
+      const response = await adminApi.getOrdersBySession(table.session_id)
+      setOrders(response.data.orders)
+    } catch (err) {
+      console.error('Failed to load orders:', err)
+      setOrders([])
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleStatusChange = async (orderId, currentStatus) => {
-    const nextStatus = currentStatus === 'PENDING' ? 'PREPARING' : 'COMPLETED'
+    const nextStatus = currentStatus === 'pending' ? 'preparing' : 'completed'
     
     try {
       await adminApi.updateOrderStatus(orderId, nextStatus)
       onOrderUpdate(orderId, nextStatus)
+      loadOrders()
     } catch (err) {
       alert(err.response?.data?.error?.message || '상태 변경에 실패했습니다')
     }
@@ -43,11 +59,13 @@ export function OrderDetailModal({ isOpen, onClose, table, onOrderUpdate, onOrde
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={`테이블 ${table.table_number} 주문 상세`}>
       <div className="order-detail-content">
-        {table.orders?.length === 0 ? (
+        {loading ? (
+          <Loading message="주문을 불러오는 중..." />
+        ) : orders.length === 0 ? (
           <p className="no-orders">주문이 없습니다</p>
         ) : (
           <div className="orders-list">
-            {table.orders?.map((order) => (
+            {orders.map((order) => (
               <div key={order.id} className="order-card">
                 <div className="order-header">
                   <span className="order-number">{order.order_number}</span>
@@ -76,13 +94,13 @@ export function OrderDetailModal({ isOpen, onClose, table, onOrderUpdate, onOrde
                 </div>
                 
                 <div className="order-actions">
-                  {order.status !== 'COMPLETED' && (
+                  {order.status !== 'completed' && (
                     <Button 
                       size="small"
-                      variant={order.status === 'PENDING' ? 'warning' : 'success'}
+                      variant={order.status === 'pending' ? 'warning' : 'success'}
                       onClick={() => handleStatusChange(order.id, order.status)}
                     >
-                      {order.status === 'PENDING' ? '준비 시작' : '완료'}
+                      {order.status === 'pending' ? '준비 시작' : '완료'}
                     </Button>
                   )}
                   <Button 

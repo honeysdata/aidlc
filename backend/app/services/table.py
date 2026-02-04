@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 import json
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -32,6 +32,12 @@ class TableService:
                 status_code=404
             )
         return table
+    
+    async def get_active_session_id(self, db: AsyncSession, store_id: int, table_id: int) -> Optional[int]:
+        """테이블의 활성 세션 ID 조회"""
+        table = await self.get_table_by_id(db, store_id, table_id)
+        session = await self.session_repo.get_active_session(db, table.id)
+        return session.id if session else None
     
     async def create_table(
         self,
@@ -125,6 +131,7 @@ class TableService:
             history = OrderHistory(
                 store_id=store_id,
                 table_number=table.table_number,
+                session_id=session.id,
                 order_number=order.order_number,
                 items_json=json.dumps(items_json, ensure_ascii=False),
                 total_amount=order.total_amount,

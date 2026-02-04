@@ -23,18 +23,18 @@ export function formatDate(dateString) {
 
 export function formatOrderStatus(status) {
   const statusMap = {
-    PENDING: '대기중',
-    PREPARING: '준비중',
-    COMPLETED: '완료',
+    pending: '대기중',
+    preparing: '준비중',
+    completed: '완료',
   }
   return statusMap[status] || status
 }
 
 export function getStatusColor(status) {
   const colorMap = {
-    PENDING: '#f39c12',
-    PREPARING: '#3498db',
-    COMPLETED: '#27ae60',
+    pending: '#f39c12',
+    preparing: '#3498db',
+    completed: '#27ae60',
   }
   return colorMap[status] || '#666'
 }

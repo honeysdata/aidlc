@@ -12,6 +12,10 @@ class BaseRepository(Generic[T]):
     async def get(self, db: AsyncSession, id: int) -> Optional[T]:
         return await db.get(self.model, id)
     
+    # Alias for get
+    async def get_by_id(self, db: AsyncSession, id: int) -> Optional[T]:
+        return await self.get(db, id)
+    
     async def get_all(self, db: AsyncSession) -> List[T]:
         result = await db.execute(select(self.model))
         return list(result.scalars().all())

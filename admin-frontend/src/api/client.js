@@ -33,6 +33,7 @@ export const adminApi = {
   login: (data) => client.post('/admin/auth/login', data),
   
   // Orders
+  getOrdersBySession: (sessionId) => client.get(`/admin/orders/session/${sessionId}`),
   updateOrderStatus: (orderId, status) => 
     client.patch(`/admin/orders/${orderId}/status`, { status }),
   deleteOrder: (orderId) => client.delete(`/admin/orders/${orderId}`),

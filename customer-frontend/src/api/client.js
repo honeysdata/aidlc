@@ -43,6 +43,7 @@ client.interceptors.response.use(
 export const customerApi = {
   // Auth
   login: (data) => client.post('/customer/auth/login', data),
+  checkSession: () => client.get('/customer/auth/session/check'),
   
   // Menu
   getCategories: () => client.get('/customer/menu/categories'),

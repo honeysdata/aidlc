@@ -29,6 +29,7 @@ class TableListResponse(BaseModel):
 class TableSessionResponse(BaseModel):
     id: int
     table_number: int
+    session_id: Optional[int] = None
     started_at: Optional[datetime] = None
     is_active: bool
     total_amount: int = 0

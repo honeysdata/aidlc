@@ -9,6 +9,7 @@ from app.schemas.table import (
 )
 from app.schemas.order import OrderHistoryListResponse
 from app.services.table import TableService
+from app.services.sse import sse_manager
 from app.repositories.order import OrderHistoryRepository
 
 router = APIRouter(prefix="/tables", tags=["Admin Table"])
@@ -38,6 +39,7 @@ async def get_table_dashboard(
         TableSessionResponse(
             id=t["id"],
             table_number=t["table_number"],
+            session_id=t["session_id"],
             started_at=t["started_at"] or None,
             is_active=t["is_active"],
             total_amount=t["total_amount"],
@@ -92,7 +94,17 @@ async def complete_table_session(
 ):
     """이용 완료 처리"""
     service = TableService()
+    
+    # 세션 ID 조회 (SSE 알림용)
+    session_id = await service.get_active_session_id(db, token.store_id, table_id)
+    
+    # 이용 완료 처리
     await service.complete_session(db, token.store_id, table_id)
+    
+    # SSE 알림 (고객에게 세션 완료 알림)
+    if session_id:
+        await sse_manager.notify_session_completed(token.store_id, session_id)
+    
     return {"message": "이용 완료 처리되었습니다"}
 
 

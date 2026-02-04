@@ -115,6 +115,21 @@ class SSEManager:
         )
         await self.broadcast_to_admin(store_id, event)
         await self.broadcast_to_customer(session_id, event)
+    
+    async def notify_session_completed(
+        self,
+        store_id: int,
+        session_id: int
+    ) -> None:
+        """세션 완료 알림 (고객에게) - 이용 완료 시"""
+        event = SSEEvent(
+            event_type="session_completed",
+            data={
+                "session_id": session_id,
+                "message": "이용이 완료되었습니다"
+            }
+        )
+        await self.broadcast_to_customer(session_id, event)
 
 
 # 싱글톤 인스턴스

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import IntegrityError
 
 from app.models import TableSession
 from app.repositories.store import StoreRepository
@@ -58,14 +59,25 @@ class AuthService:
         # 4. 활성 세션 확인 또는 새 세션 생성
         session = await self.session_repo.get_active_session(db, table.id)
         if not session:
-            session = TableSession(
-                table_id=table.id,
-                started_at=datetime.utcnow(),
-                is_active=True
-            )
-            db.add(session)
-            await db.commit()
-            await db.refresh(session)
+            try:
+                session = TableSession(
+                    table_id=table.id,
+                    started_at=datetime.utcnow(),
+                    is_active=True
+                )
+                db.add(session)
+                await db.commit()
+                await db.refresh(session)
+            except IntegrityError:
+                # Race condition으로 중복 세션 생성 시도 시 기존 세션 사용
+                await db.rollback()
+                session = await self.session_repo.get_active_session(db, table.id)
+                if not session:
+                    raise AppException(
+                        code="SESSION_ERROR",
+                        message="세션 생성에 실패했습니다. 다시 시도해주세요.",
+                        status_code=500
+                    )
         
         # 5. JWT 토큰 발급
         token = jwt_handler.create_table_token(
