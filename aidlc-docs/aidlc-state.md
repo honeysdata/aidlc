@@ -4,7 +4,7 @@
 - **Project Name**: Table Order Service (테이블오더 서비스)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-02-04T00:00:00Z
-- **Current Stage**: INCEPTION - Workflow Planning Complete
+- **Current Stage**: CONSTRUCTION - Unit 1: Backend API - Functional Design
 
 ## Workspace State
 - **Existing Code**: No
@@ -25,7 +25,7 @@
 - [x] User Stories - COMPLETED (2026-02-04)
 - [x] Workflow Planning - COMPLETED (2026-02-04)
 - [x] Application Design - COMPLETED (2026-02-04)
-- [ ] Units Generation - EXECUTE
+- [x] Units Generation - COMPLETED (2026-02-04)
 
 ### CONSTRUCTION PHASE
 - [ ] Functional Design - EXECUTE (per-unit)
