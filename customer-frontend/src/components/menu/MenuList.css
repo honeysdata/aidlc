@@ -1,0 +1,11 @@
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu-empty {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}

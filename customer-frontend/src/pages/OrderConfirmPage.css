@@ -1,0 +1,57 @@
+.order-confirm-page h2 {
+  font-size: 20px;
+  margin: 0 0 20px 0;
+}
+
+.order-items {
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item-name {
+  flex: 1;
+  font-size: 15px;
+  color: #333;
+}
+
+.order-item-qty {
+  font-size: 14px;
+  color: #888;
+  margin-right: 16px;
+}
+
+.order-item-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4a90d9;
+  min-width: 80px;
+  text-align: right;
+}
+
+.order-error {
+  color: #e74c3c;
+  text-align: center;
+  margin: 16px 0;
+}
+
+.order-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.order-actions .btn {
+  flex: 1;
+}

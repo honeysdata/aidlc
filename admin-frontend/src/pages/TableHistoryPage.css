@@ -1,0 +1,99 @@
+.table-history-page {
+  max-width: 800px;
+}
+
+.page-header h1 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin: 8px 0 24px 0;
+}
+
+.filter-form {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+.filter-group input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.order-number {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.order-date {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+.history-items {
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.history-total {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+  margin-top: 12px;
+  padding-top: 12px;
+  font-weight: 600;
+}
+
+.history-total span:last-child {
+  color: #3498db;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px;
+  color: #7f8c8d;
+  background: white;
+  border-radius: 8px;
+}

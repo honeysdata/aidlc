@@ -1,0 +1,57 @@
+.menu-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.menu-info {
+  flex: 1;
+}
+
+.menu-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 4px 0;
+}
+
+.menu-description {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.menu-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #4a90d9;
+  margin: 0;
+}
+
+.menu-add-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background-color: #4a90d9;
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.menu-add-btn:hover {
+  background-color: #3a7bc8;
+}
+
+.menu-add-btn:active {
+  transform: scale(0.95);
+}

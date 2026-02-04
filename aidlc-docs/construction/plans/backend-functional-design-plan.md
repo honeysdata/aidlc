@@ -6,19 +6,19 @@ Backend API의 비즈니스 로직 및 도메인 모델 상세 설계
 ## Execution Checklist
 
 ### Phase 1: Domain Entities Design
-- [ ] 핵심 엔티티 정의 (Store, User, Table, Menu, Order 등)
-- [ ] 엔티티 관계 정의
-- [ ] domain-entities.md 생성
+- [x] 핵심 엔티티 정의 (Store, User, Table, Menu, Order 등)
+- [x] 엔티티 관계 정의
+- [x] domain-entities.md 생성
 
 ### Phase 2: Business Logic Model
-- [ ] 주요 비즈니스 프로세스 정의
-- [ ] 데이터 흐름 정의
-- [ ] business-logic-model.md 생성
+- [x] 주요 비즈니스 프로세스 정의
+- [x] 데이터 흐름 정의
+- [x] business-logic-model.md 생성
 
 ### Phase 3: Business Rules
-- [ ] 검증 규칙 정의
-- [ ] 비즈니스 제약 조건 정의
-- [ ] business-rules.md 생성
+- [x] 검증 규칙 정의
+- [x] 비즈니스 제약 조건 정의
+- [x] business-rules.md 생성
 
 ---
 
@@ -36,7 +36,7 @@ B) 날짜 기반 (20260204-001, 20260204-002...)
 C) UUID (고유 식별자)
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]:   B
 
 ---
 
@@ -48,7 +48,7 @@ B) 테이블 로그인 시 자동 시작
 C) 관리자가 수동으로 시작
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ---
 
@@ -59,7 +59,7 @@ A) 순차적 전이만 허용 (대기중→준비중→완료, 역방향 불가)
 B) 자유로운 전이 허용 (어떤 상태에서든 변경 가능)
 C) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -71,7 +71,7 @@ B) 메뉴 삭제 시 해당 메뉴가 포함된 주문도 함께 삭제
 C) 주문이 있는 메뉴는 삭제 불가
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -82,7 +82,7 @@ A) 주문 시점의 가격을 스냅샷으로 저장 (가격 변경 영향 없�
 B) 메뉴 가격 변경 시 기존 주문 금액도 자동 업데이트
 C) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
